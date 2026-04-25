@@ -22,6 +22,7 @@ A browser-based implementation of the MATLAB workflow you provided for surface-t
 
 ## Run locally
 
+### Option 1: Simple local server
 No build tooling is required.
 
 ```bash
@@ -29,6 +30,19 @@ python -m http.server 8000
 ```
 
 Open: `http://localhost:8000`
+
+### Option 2: Auto-open preview in Chrome
+
+```bash
+./preview.sh
+```
+
+This script starts a local server on `http://localhost:8000` and attempts to open it in Chrome.
+You can pass a custom port:
+
+```bash
+./preview.sh 9000
+```
 
 ## Notes
 
