@@ -23,6 +23,7 @@ A browser-based implementation of the MATLAB workflow you provided for surface-t
 ## Run locally
 
 ### Option 1: Simple local server
+No build tooling is required.
 
 ```bash
 python -m http.server 8000
