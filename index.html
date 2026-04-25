@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Surface Texture Analyzer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Surface Texture Analyzer</h1>
+    <p class="subtitle">Web implementation of your MATLAB surface-texture workflow.</p>
+
+    <section class="panel controls">
+      <label>
+        Input image
+        <input id="imageInput" type="file" accept="image/*" />
+      </label>
+      <label>
+        Surface length X (Lx, mm)
+        <input id="lxInput" type="number" value="100" min="1" step="1" />
+      </label>
+      <label>
+        Surface length Y (Ly, mm)
+        <input id="lyInput" type="number" value="100" min="1" step="1" />
+      </label>
+      <label>
+        Wavelengths (mm, comma-separated)
+        <input id="lambdaInput" type="text" value="50,0.5" />
+      </label>
+      <button id="runButton">Run Analysis</button>
+      <small>Tip: the uploaded image is converted to grayscale automatically.</small>
+    </section>
+
+    <section class="panel" id="statusPanel">
+      <h2>Status</h2>
+      <p id="statusText">Upload an image and click <strong>Run Analysis</strong>.</p>
+    </section>
+
+    <section class="panel grid-two">
+      <div>
+        <h2>Input Preview</h2>
+        <canvas id="inputCanvas" width="400" height="300"></canvas>
+      </div>
+      <div>
+        <h2>Abbott Curve</h2>
+        <canvas id="curveCanvas" width="400" height="300"></canvas>
+      </div>
+    </section>
+
+    <section class="panel grid-three">
+      <div>
+        <h2>Corrected Surface (Z)</h2>
+        <canvas id="zCanvas" width="360" height="240"></canvas>
+      </div>
+      <div>
+        <h2>Waviness (Zw)</h2>
+        <canvas id="zwCanvas" width="360" height="240"></canvas>
+      </div>
+      <div>
+        <h2>Roughness (Zr)</h2>
+        <canvas id="zrCanvas" width="360" height="240"></canvas>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Results</h2>
+      <label>
+        Show wavelength result
+        <select id="resultSelector"></select>
+      </label>
+      <table id="resultsTable">
+        <thead>
+          <tr><th>Parameter</th><th>Value</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
