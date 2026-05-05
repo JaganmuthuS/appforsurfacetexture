@@ -1,5 +1,6 @@
 const imageInput = document.getElementById('imageInput');
 const runButton = document.getElementById('runButton');
+const exportCsvButton = document.getElementById('exportCsvButton');
 const statusText = document.getElementById('statusText');
 const lxInput = document.getElementById('lxInput');
 const lyInput = document.getElementById('lyInput');
@@ -53,6 +54,14 @@ runButton.addEventListener('click', () => {
 });
 
 resultSelector.addEventListener('change', renderSelectedResult);
+
+exportCsvButton.addEventListener('click', () => {
+  if (!analysisResults.length) {
+    statusText.textContent = 'No results to export. Run analysis first.';
+    return;
+  }
+  exportResultsAsCsv(analysisResults);
+});
 
 function populateSelector(results) {
   resultSelector.innerHTML = '';
@@ -517,6 +526,22 @@ function formatNumber(value) {
   return Math.abs(value) >= 1e4 || (Math.abs(value) < 1e-3 && value !== 0)
     ? value.toExponential(4)
     : value.toFixed(6);
+}
+
+function exportResultsAsCsv(results) {
+  const headers = ['Lambda (mm)', 'Sa', 'Sq', 'Ssk', 'Sku', 'Sk', 'Smr1', 'Smr2', 'Sak1', 'Sak2', 'Spk', 'Svk'];
+  const rows = results.map((r) => [
+    r.lambda, r.Sa, r.Sq, r.Ssk, r.Sku, r.Sk, r.Smr1, r.Smr2, r.Sak1, r.Sak2, r.Spk, r.Svk,
+  ].map(formatNumber));
+
+  const csv = [headers.join(','), ...rows.map((row) => row.join(','))].join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'surface_texture_results.csv';
+  a.click();
+  URL.revokeObjectURL(url);
 }
 
 function clamp(v, min, max) {
